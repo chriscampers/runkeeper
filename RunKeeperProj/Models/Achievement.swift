@@ -11,7 +11,7 @@ import Foundation
 // Explination of fields that make up an Achievement
 // id                -> db id
 // title             -> title of achievement
-// description       -> currently unused was thinking it could be used to provide a description if
+// description       -> currently unused was thinking it could be used to provide a description if the cell when pressed opened to a modal
 // distanceCompleted -> height/elevation of the achievement
 // secondsCompleted  -> seconds taken to complete achievement
 // url               -> address to fetch achievement badge
@@ -69,7 +69,7 @@ struct Achievement : Codable {
     }
 }
 
-enum AchievementType: Int, Codable, CaseIterable{
+enum AchievementType: Int, Codable, CaseIterable {
     case Personal,
          VirtualRace,
          UNKNOWN

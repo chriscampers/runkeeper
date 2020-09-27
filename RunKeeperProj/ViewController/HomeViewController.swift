@@ -12,15 +12,11 @@ class HomeViewController: BaseViewController {
     
     var stackView:UIStackView = UIStackView()
     let achievementsPageButton:UIButton = UIButton()
-    
-    override func viewWillAppear(_ animated: Bool) {
-        super.viewWillAppear(animated);
-    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         
-        self.title = "RunKeeper"
+        self.title = "Runkeeper"
         
         // Setup StackView
         view.addSubview(stackView)

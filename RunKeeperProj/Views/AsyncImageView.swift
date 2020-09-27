@@ -6,8 +6,6 @@
 //  Copyright © 2020 Chris Campanelli. All rights reserved.
 //
 
-import Foundation
-
 import UIKit
 
 class ImageCache {

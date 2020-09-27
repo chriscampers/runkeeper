@@ -8,18 +8,17 @@
 
 import Foundation
 
-
 // This class is used to simulate the app syncing data from the server.
 // Although currently not connected to API's see data.json file
 class SyncManager {
 
     static let shared = SyncManager()
     private let achievementManager = AchievementManager.shared
-    private init(){
+    private init() {
         syncRecieved()
     }
     
-    func syncRecieved(){
+    func syncRecieved() {
         let url = Bundle.main.url(forResource: "data", withExtension: "json")!
         let data = try! Data(contentsOf: url)
         let jsonObject = try! JSONSerialization.jsonObject(with: data, options: [])

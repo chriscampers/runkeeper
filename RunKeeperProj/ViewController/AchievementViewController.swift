@@ -26,13 +26,14 @@ class AchievementViewController: BaseViewController, UICollectionViewDelegate {
         super.viewDidLoad()
         self.title = "Achievments"
         
+        achievementManager.achievementDelegate = self
+        
         // Sort through achievementList to determine each sections data
         sortAchievementList(achievementList: achievementManager.achievementList)
 
         // Setup UICollectionView
         let layout: UICollectionViewFlowLayout = UICollectionViewFlowLayout()
         layout.sectionInset = UIEdgeInsets(top: 20, left: 10, bottom: 10, right: 10)
-        layout.itemSize = CGSize(width: 60, height: 60)
         collectionView = UICollectionView(frame: self.view.frame, collectionViewLayout: layout)
         collectionView?.register(AchievementCell.self, forCellWithReuseIdentifier: "cell")
         collectionView?.backgroundColor = UIColor.white
@@ -53,6 +54,9 @@ class AchievementViewController: BaseViewController, UICollectionViewDelegate {
     }
     
     func sortAchievementList(achievementList:[Achievement]) {
+        // Remove all elements from sorted sub lists before sorting through master achievement list.
+        personalAchievmentsList.removeAll(keepingCapacity: false)
+        virtualRaceList.removeAll(keepingCapacity: false)
         for achievement in achievementList {
             if achievement.achievementType == .Personal {
                 personalAchievmentsList.append(achievement)
@@ -123,14 +127,21 @@ extension AchievementViewController: UICollectionViewDataSource, UICollectionVie
         return cell
     }
 
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, referenceSizeForHeaderInSection section: Int) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView,
+             layout collectionViewLayout: UICollectionViewLayout,
+ referenceSizeForHeaderInSection section: Int) -> CGSize
+    {
         return CGSize(width: 100, height: SECTION_HEADER_HEIGHT)
     }
     
-    func collectionView(_ collectionView: UICollectionView, viewForSupplementaryElementOfKind kind: String, at indexPath: IndexPath) -> UICollectionReusableView {
-        
+    func collectionView(_ collectionView: UICollectionView,
+  viewForSupplementaryElementOfKind kind: String,
+                            at indexPath: IndexPath) -> UICollectionReusableView
+    {
         let achievementType = AchievementType.init(rawValue: indexPath.section) ?? AchievementType.UNKNOWN
-        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader, withReuseIdentifier: "headerView", for: indexPath as IndexPath) as! AchievementCollectionHeader
+        let headerView = collectionView.dequeueReusableSupplementaryView(ofKind: UICollectionView.elementKindSectionHeader,
+                                                            withReuseIdentifier: "headerView",
+                                                                            for: indexPath as IndexPath) as! AchievementCollectionHeader
 
         var titleString:String
         switch achievementType {
@@ -147,7 +158,10 @@ extension AchievementViewController: UICollectionViewDataSource, UICollectionVie
         return headerView
     }
     
-    func collectionView(_ collectionView: UICollectionView, layout collectionViewLayout: UICollectionViewLayout, sizeForItemAt indexPath: IndexPath) -> CGSize {
+    func collectionView(_ collectionView: UICollectionView,
+             layout collectionViewLayout: UICollectionViewLayout,
+                 sizeForItemAt indexPath: IndexPath) -> CGSize
+    {
         // https://stackoverflow.com/questions/55280171/set-width-of-custom-uiview-nib-to-its-parent-collectionviewcell
         let numberOfItemsPerRow:CGFloat = 2
         let spacingBetweenCells:CGFloat = 10
